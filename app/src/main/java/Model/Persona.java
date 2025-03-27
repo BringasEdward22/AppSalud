@@ -13,9 +13,9 @@ public class Persona {
     private String DNI;
     private double peso;
     private double altura;
-    private Uri foto;
+    private byte[] foto; //cambio Uri
 
-    public Persona(String nombre, String apellido,String sexo,String ciudad, int edad, String DNI, double peso, double altura,Uri foto) {
+    public Persona(String nombre, String apellido,String sexo,String ciudad, int edad, String DNI, double peso, double altura,byte[] foto) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.sexo=sexo;
@@ -26,6 +26,58 @@ public class Persona {
         this.altura = altura;
         this.foto=foto;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public String getDNI() {
+        return DNI;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+//2unidad
+
+        public String getNombreCompleto()
+        {
+            return apellido+" "+nombre;
+        }
+        public  String getTipoPeso()
+        {
+            String[] tipoPeso={"Bajo peso","Peso Ideal","Sobrepeso"};
+            return tipoPeso[calcularIMC()];
+        }
+        public String getTipoPersona()
+        {
+            return esMayorDeEdad() ? "Mayor de edad" : "Menor de edad";
+        }
+        public String getSexo()
+        {
+            return sexo;
+        }
+        public String getCiudad() //procedencia
+        {
+            return ciudad;
+        }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public double getAltura() {
+        return altura;
+    }
+    //-----------------------------------------------------------
 
     public int calcularIMC() {
         double par = peso / (altura * altura);
@@ -69,19 +121,21 @@ public class Persona {
             default: estadoPeso = "Desconocido"; break;
         }
 
-        return apellido + " " + nombre + " | " +" estado de su peso: "
+        return apellido + " " + nombre +" estado de su peso: "
                 + estadoPeso + " | " + " y es: "+(esMayorDeEdad() ? "Mayor de edad" : "Menor de edad");
 
     }
 
-    /*
+/*
     @NonNull
     @Override
     public String toString() {
-        String[] tipoPeso={"debajo de ideal","ideal","sobre ideal"};
-        return  apellidos+"; "+nombres+" tiene peso "+tipoPeso[calcuarIMC()+1]+" y es "+(esMayorDeEdad() ? "Mayor de edad" : "Menor de edad");
+        String[] tipoPeso={"Bajo peso","Peso Ideal","Sobrepeso"};
+        return  apellido+"; "+nombre+" tiene peso "+tipoPeso[calcularIMC()+1]+" y es "+(esMayorDeEdad() ? "Mayor de edad" : "Menor de edad");
     }
-     */
+
+ */
+
 
 
 }

@@ -5,31 +5,31 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ActividadRegistrarPersona">
 
     <TextView
         android:id="@+id/textView"
         style="@style/Titulos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:text="Registro Persona"
+        android:layout_margin="@dimen/separacion_vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tbRegistrarPersonas" />
 
     <EditText
         android:id="@+id/txtNombres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/separacion_vertical"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="Ingresar Nombres"
         android:inputType="text"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.318"
+        app:layout_constraintHorizontal_bias="0.253"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -37,13 +37,13 @@
         android:id="@+id/txtApellidos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/separacion_vertical"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Ingresar Apellidos"
         android:inputType="text"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.318"
+        app:layout_constraintHorizontal_bias="0.253"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNombres" />
 
@@ -51,9 +51,9 @@
         android:id="@+id/rgSexo"
         android:layout_width="184dp"
         android:layout_height="96dp"
-        android:layout_marginTop="@dimen/separacion_vertical"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.281"
+        app:layout_constraintHorizontal_bias="0.224"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtApellidos">
 
@@ -74,9 +74,9 @@
         android:id="@+id/sp_ciudad"
         android:layout_width="223dp"
         android:layout_height="48dp"
-        android:layout_marginTop="@dimen/separacion_vertical"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintHorizontal_bias="0.271"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rgSexo" />
 
@@ -84,14 +84,14 @@
         android:id="@+id/txtEdad"
         android:layout_width="156dp"
         android:layout_height="51dp"
-        android:layout_marginTop="@dimen/separacion_vertical"
+        android:layout_marginTop="4dp"
         android:ems="10"
         android:hint="Ingresar Edad"
         android:inputType="number"
         android:minHeight="48dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sp_ciudad" />
 
@@ -99,13 +99,13 @@
         android:id="@+id/txtDNI"
         android:layout_width="156dp"
         android:layout_height="52dp"
-        android:layout_marginTop="@dimen/separacion_vertical"
+        android:layout_marginTop="4dp"
         android:ems="10"
         android:hint="Ingresar DNI"
         android:inputType="number"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtEdad" />
 
@@ -113,13 +113,13 @@
         android:id="@+id/txtPeso"
         android:layout_width="161dp"
         android:layout_height="48dp"
-        android:layout_marginTop="@dimen/separacion_vertical"
+        android:layout_marginTop="4dp"
         android:ems="10"
         android:hint="Ingresar Peso"
         android:inputType="numberDecimal"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.256"
+        app:layout_constraintHorizontal_bias="0.204"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDNI" />
 
@@ -127,13 +127,13 @@
         android:id="@+id/txtAltura"
         android:layout_width="160dp"
         android:layout_height="51dp"
-        android:layout_marginTop="@dimen/separacion_vertical"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="Ingresar Altura"
         android:inputType="numberDecimal"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.254"
+        app:layout_constraintHorizontal_bias="0.207"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPeso" />
 
@@ -175,5 +175,16 @@
         app:layout_constraintStart_toEndOf="@+id/txtEdad"
         app:layout_constraintTop_toBottomOf="@+id/sp_ciudad"
         app:srcCompat="@drawable/agregar_imagen" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tbRegistrarPersonas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

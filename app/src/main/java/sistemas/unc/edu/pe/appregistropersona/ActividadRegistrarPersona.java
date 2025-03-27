@@ -1,6 +1,8 @@
 package sistemas.unc.edu.pe.appregistropersona;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -13,40 +15,43 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import AccesoDatos.DAOPersona;
 import Model.Persona;
-import sistemas.unc.edu.pe.appregistropersona.R;
 
-public class MainActivity extends AppCompatActivity {
+public class ActividadRegistrarPersona extends AppCompatActivity {
 
     EditText txtNombres, txtApellidos, txtEdad, txtDNI, txtPeso, txtAltura;
     Button btnRegistrar, btnListar;
     RadioGroup rgSexo;
     Spinner sp_ciudad;
     ImageView imgFoto;
-    public static List<Persona> listaPersonas;
+    // public static List<Persona> listaPersonas;  borrar
     String[] ciudades = {"Seleccionar ciudad", "Cajamarca", "Trujillo", "Chiclayo"};
-    Uri imgSeleccionado = null;
+    byte[] imgSeleccionado = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        setContentView(R.layout.ly_registrar_personas);
+
+        Toolbar oBarra=findViewById(R.id.tbRegistrarPersonas);
+        setSupportActionBar(oBarra);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         txtNombres = findViewById(R.id.txtNombres);
         txtApellidos = findViewById(R.id.txtApellidos);
@@ -65,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         btnListar = findViewById(R.id.btnListar);
         btnRegistrar.setOnClickListener(v -> registrarPersona());
 
-        listaPersonas = new ArrayList<>();
+        //listaPersonas = new ArrayList<>();
     }
 
     private void seleccionarFoto() {
@@ -78,8 +83,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent oIntento) {
         super.onActivityResult(requestCode, resultCode, oIntento);
         if (requestCode == 100 && resultCode == RESULT_OK) {
-            imgSeleccionado = oIntento.getData();
-            imgFoto.setImageURI(oIntento.getData());
+
+            Uri foto=oIntento.getData();
+            imgFoto.setImageURI(foto);
+            imgFoto.buildDrawingCache();
+            Bitmap oBitmap= imgFoto.getDrawingCache();
+            ByteArrayOutputStream oFlujo = new ByteArrayOutputStream();
+            oBitmap.compress(Bitmap.CompressFormat.PNG,0,oFlujo);
+            imgSeleccionado = oFlujo.toByteArray();
+
+            //imgSeleccionado = oIntento.getData();
+            //imgFoto.setImageURI(oIntento.getData());
         }
     }
 
@@ -156,13 +170,49 @@ public class MainActivity extends AppCompatActivity {
 
         if (oPersona.verificarDNI()) {
             Toast.makeText(this, "Registro Correcto: " + oPersona.toString(), Toast.LENGTH_SHORT).show();
-            listaPersonas.add(oPersona);
-            limpiar();
+            //listaPersonas.add(oPersona); despues de borrar
+
+            //ActividadPrincipal.listaPersonas.add(oPersona);
+
+            //limpiar();
+            DAOPersona oDAOPersona = new DAOPersona();
+            if(oDAOPersona.Agregar(this,oPersona))
+                //nuevo 2da unidad
+                cuadroDialogo();
+
+
+
         } else {
             Toast.makeText(this, "No se registró. DNI inválido.", Toast.LENGTH_SHORT).show();
             txtDNI.requestFocus();
         }
     }
+
+    //2da unidad
+    private void cuadroDialogo() {
+        AlertDialog.Builder oDialogo = new AlertDialog.Builder(this);
+        oDialogo.setTitle("Aviso");
+        oDialogo.setMessage("Desea seguir registrando");
+        oDialogo.setIcon(R.drawable.baseline_add_alert_24);
+        oDialogo.setPositiveButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                finish();
+                ActividadRegistrarPersona.this.finish();
+            }
+        });
+        oDialogo.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                limpiar();
+            }
+        });
+        oDialogo.create();
+        oDialogo.show();
+    }
+
+
 
     // validacion hecha en clase
 
